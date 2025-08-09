@@ -123,5 +123,3 @@ This app demonstrates best practices in Android development with **Firebase** in
 </table>
 
 
-## Project FlowChart 
-![Registration](flowchart.png)  
