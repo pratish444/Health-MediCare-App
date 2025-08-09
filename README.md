@@ -57,5 +57,71 @@ This app demonstrates best practices in Android development with **Firebase** in
 
 ## SCREENSHOTS
 
+<table>
+  <tr>
+    <td align="center">
+      <b>Registration</b><br>
+      <img src="UserReg.png" width="300"/>
+    </td>
+    <td align="center">
+      <b>Medical Details</b><br>
+      <img src="MedDetails.png" width="300"/>
+    </td>
+    <td align="center">
+      <b>Login</b><br>
+      <img src="Login.png" width="300"/>
+    </td>
+  </tr>
+
+  <tr>
+    <td align="center">
+      <b>Forget Password</b><br>
+      <img src="ForgotPassword.png" width="300"/>
+    </td>
+    <td align="center">
+      <b>Dashboard</b><br>
+      <img src="DashBoard.png" width="300"/>
+    </td>
+    <td align="center">
+      <b>Calorie Manage</b><br>
+      <img src="CalorieManage.png" width="300"/>
+    </td>
+  </tr>
+
+  <tr>
+    <td align="center">
+      <b>Health Article</b><br>
+      <img src="healtharticle.png" width="300"/>
+    </td>
+    <td align="center">
+      <b>Sleep Track</b><br>
+      <img src="sleeptrack.png" width="300"/>
+    </td>
+    <td align="center">
+      <b>Maps Search</b><br>
+      <img src="mapsearch.png" width="300"/>
+    </td>
+  </tr>
+</table>
+
+---
+
+## FIREBASE FEATURES
+
+<table>
+  <tr>
+    <td align="center">
+      <b>Firebase Realtime Database</b><br>
+      <img src="firebaseRealtimeDB.png" width="300"/>
+    </td>
+    <td align="center">
+      <b>Firebase Cloud Messaging</b><br>
+      <img src="fcm.png" width="300"/>
+    </td>
+    <td></td>
+  </tr>
+</table>
 
 
+## Project FlowChart 
+![Registration](flowchart.png)  
