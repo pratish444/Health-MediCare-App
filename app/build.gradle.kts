@@ -21,7 +21,7 @@ android {
 
     buildFeatures {
         viewBinding = true
-        buildConfig = true  // ✅ Add this for BuildConfig
+        buildConfig = true
     }
 
     compileOptions {
@@ -86,7 +86,6 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
 }
 
-// ✅ Add this at the end
 kapt {
     correctErrorTypes = true
 }
