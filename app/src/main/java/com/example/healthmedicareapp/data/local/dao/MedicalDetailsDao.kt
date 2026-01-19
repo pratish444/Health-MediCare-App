@@ -10,7 +10,7 @@ interface MedicalDetailsDao {
     suspend fun insertMedicalDetails(details: MedicalDetailsEntity)
 
     @Query("SELECT * FROM medical_details WHERE userId = :userId")
-    fun getMedicalDetails(userId: String): Flow
+    fun getMedicalDetails(userId: String): Flow<MedicalDetailsEntity?>
 
     @Update
     suspend fun updateMedicalDetails(details: MedicalDetailsEntity)

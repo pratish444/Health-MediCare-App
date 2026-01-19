@@ -13,7 +13,7 @@ interface SleepTrackDao {
     suspend fun updateSleepTrack(track: SleepTrackEntity)
 
     @Query("SELECT * FROM sleep_tracks WHERE userId = :userId ORDER BY startTime DESC")
-    fun getAllSleepTracks(userId: String): Flow<List>
+    fun getAllSleepTracks(userId: String): Flow<List<SleepTrackEntity>>
 
     @Query("SELECT * FROM sleep_tracks WHERE id = :id")
     suspend fun getSleepTrackById(id: Long): SleepTrackEntity?
