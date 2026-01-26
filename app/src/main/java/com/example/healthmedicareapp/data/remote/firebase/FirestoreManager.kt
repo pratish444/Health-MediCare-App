@@ -13,7 +13,7 @@ class FirestoreManager @Inject constructor(
     private val usersCollection = firestore.collection("users")
     private val medicalDetailsCollection = firestore.collection("medical_details")
 
-    suspend fun saveUser(user: User): Result {
+    suspend fun saveUser(user: User): Result<Unit> {
         return try {
             usersCollection.document(user.userId).set(
                 hashMapOf(
@@ -28,7 +28,7 @@ class FirestoreManager @Inject constructor(
         }
     }
 
-    suspend fun getUser(userId: String): Result {
+    suspend fun getUser(userId: String): Result<User?> {
         return try {
             val document = usersCollection.document(userId).get().await()
             if (document.exists()) {
@@ -48,7 +48,7 @@ class FirestoreManager @Inject constructor(
         }
     }
 
-    suspend fun saveMedicalDetails(details: MedicalDetails): Result {
+    suspend fun saveMedicalDetails(details: MedicalDetails): Result<Unit> {
         return try {
             medicalDetailsCollection.document(details.userId).set(
                 hashMapOf(
@@ -71,7 +71,7 @@ class FirestoreManager @Inject constructor(
         }
     }
 
-    suspend fun getMedicalDetails(userId: String): Result {
+    suspend fun getMedicalDetails(userId: String): Result<MedicalDetails?> {
         return try {
             val document = medicalDetailsCollection.document(userId).get().await()
             if (document.exists()) {

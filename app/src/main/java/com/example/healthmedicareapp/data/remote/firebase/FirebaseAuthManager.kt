@@ -13,7 +13,7 @@ class FirebaseAuthManager @Inject constructor(
     val currentUser: FirebaseUser?
         get() = firebaseAuth.currentUser
 
-    suspend fun signUp(email: String, password: String): kotlin.Result {
+    suspend fun signUp(email: String, password: String): kotlin.Result<FirebaseUser> {
         return try {
             val result = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
             Result.success(result.user!!)
@@ -22,7 +22,7 @@ class FirebaseAuthManager @Inject constructor(
         }
     }
 
-    suspend fun signIn(email: String, password: String): Result {
+    suspend fun signIn(email: String, password: String): Result<FirebaseUser> {
         return try {
             val result = firebaseAuth.signInWithEmailAndPassword(email, password).await()
             Result.success(result.user!!)
@@ -31,7 +31,7 @@ class FirebaseAuthManager @Inject constructor(
         }
     }
 
-    suspend fun sendPasswordResetEmail(email: String): Result {
+    suspend fun sendPasswordResetEmail(email: String): Result<Unit> {
         return try {
             firebaseAuth.sendPasswordResetEmail(email).await()
             Result.success(Unit)
