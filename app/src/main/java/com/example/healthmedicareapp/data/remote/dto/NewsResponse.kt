@@ -8,7 +8,7 @@ data class NewsResponse(
     @SerializedName("totalResults")
     val totalResults: Int,
     @SerializedName("articles")
-    val articles: List
+    val articles: List<ArticleDto>
 )
 
 data class ArticleDto(
