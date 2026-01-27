@@ -4,7 +4,7 @@ import javax.inject.Inject
 import kotlin.math.pow
 
 class CalculateBMIUseCase @Inject constructor() {
-    operator fun invoke(heightCm: Int, weightKg: Int): Pair {
+    operator fun invoke(heightCm: Int, weightKg: Int): Pair<Float, String> {
         val heightM = heightCm / 100.0f
         val bmi = weightKg / heightM.pow(2)
 
