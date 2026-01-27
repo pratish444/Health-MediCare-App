@@ -10,8 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-private val K.uid: String
-private val Result.isSuccess: Boolean
+
 
 class AuthRepositoryImpl @Inject constructor(
     private val firebaseAuthManager: FirebaseAuthManager,
@@ -24,7 +23,7 @@ class AuthRepositoryImpl @Inject constructor(
         password: String,
         fullName: String,
         mobileNumber: String
-    ): Result {
+    ): Result<User> {
         return try {
             val authResult = firebaseAuthManager.signUp(email, password)
             if (authResult.isSuccess) {
@@ -58,7 +57,7 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun signIn(email: String, password: String): Result {
+    override suspend fun signIn(email: String, password: String): Result<User> {
         return try {
             val authResult = firebaseAuthManager.signIn(email, password)
             if (authResult.isSuccess) {
@@ -88,7 +87,7 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun sendPasswordResetEmail(email: String): Result {
+    override suspend fun sendPasswordResetEmail(email: String): Result<Unit> {
         return firebaseAuthManager.sendPasswordResetEmail(email)
     }
 
@@ -96,7 +95,7 @@ class AuthRepositoryImpl @Inject constructor(
         firebaseAuthManager.signOut()
     }
 
-    override fun getCurrentUser(): Flow {
+    override fun getCurrentUser(): Flow<User?> {
         val currentUser = firebaseAuthManager.currentUser
         return if (currentUser != null) {
             userDao.getUserById(currentUser.uid).map { entity ->
