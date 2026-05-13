@@ -25,7 +25,7 @@ class FCMService : FirebaseMessagingService() {
     fun generateNotification(title: String, msg: String) {
 
         var builder = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.drawable.health_medicare_app)
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setAutoCancel(true)
             .setVibrate(longArrayOf(1000, 1000, 1000, 1000))
             .setOnlyAlertOnce(true)
