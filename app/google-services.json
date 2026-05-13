@@ -1,21 +1,21 @@
 ﻿{
   "project_info": {
-    "project_number": "177989286320",
-    "project_id": "ebook-befb4",
-    "storage_bucket": "ebook-befb4.firebasestorage.app"
+    "project_number": "1070546956288",
+    "project_id": "health-medicare-ac100",
+    "storage_bucket": "health-medicare-ac100.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:177989286320:android:2e7da1eb060f21f9f37e75",
+        "mobilesdk_app_id": "1:1070546956288:android:9c631e74c2709a1ade68e5",
         "android_client_info": {
-          "package_name": "com.example.ebookapp"
+          "package_name": "com.example.healthmedicareapp"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBdc3a78P_hgQcxeHFlcdwxvzhyiREYbHc"
+          "current_key": "AIzaSyBVD0jg2hi4yJlDi0AJ2bwB52RzFf7CYk0"
         }
       ],
       "services": {

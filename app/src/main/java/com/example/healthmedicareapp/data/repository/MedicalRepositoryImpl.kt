@@ -14,12 +14,10 @@ class MedicalRepositoryImpl @Inject constructor(
     private val firestoreManager: FirestoreManager
 ) : MedicalRepository {
 
-    override suspend fun saveMedicalDetails(details: MedicalDetails): Result {
+    override suspend fun saveMedicalDetails(details: MedicalDetails): Result<Unit> {
         return try {
-            // Save to Firestore
             val firestoreResult = firestoreManager.saveMedicalDetails(details)
 
-            // Cache locally
             medicalDetailsDao.insertMedicalDetails(
                 MedicalDetailsEntity(
                     userId = details.userId,
@@ -43,7 +41,7 @@ class MedicalRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getMedicalDetails(userId: String): Flow {
+    override fun getMedicalDetails(userId: String): Flow<MedicalDetails?> {
         return medicalDetailsDao.getMedicalDetails(userId).map { entity ->
             entity?.let {
                 MedicalDetails(
