@@ -18,48 +18,26 @@ class MedicalDetailsViewModel @Inject constructor(
     private val calculateBMIUseCase: CalculateBMIUseCase
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(MedicalDetailsUiState.Idle)
-    val uiState: StateFlow = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow<MedicalDetailsUiState>(MedicalDetailsUiState.Idle)
+    val uiState: StateFlow<MedicalDetailsUiState> = _uiState.asStateFlow()
 
     fun saveMedicalDetails(
-        userId: String,
-        height: Int,
-        weight: Int,
-        age: Int,
-        bloodGroup: String,
-        location: String,
-        gender: String,
-        profession: String,
-        systolicBP: Int,
-        diastolicBP: Int
+        userId: String, height: Int, weight: Int, age: Int,
+        bloodGroup: String, location: String, gender: String,
+        profession: String, systolicBP: Int, diastolicBP: Int
     ) {
         viewModelScope.launch {
             _uiState.value = MedicalDetailsUiState.Loading
-
             val (bmi, weightStatus) = calculateBMIUseCase(height, weight)
-
             val details = MedicalDetails(
-                userId = userId,
-                height = height,
-                weight = weight,
-                age = age,
-                bloodGroup = bloodGroup,
-                location = location,
-                gender = gender,
-                profession = profession,
-                systolicBP = systolicBP,
-                diastolicBP = diastolicBP,
-                bmi = bmi,
-                weightStatus = weightStatus
+                userId = userId, height = height, weight = weight, age = age,
+                bloodGroup = bloodGroup, location = location, gender = gender,
+                profession = profession, systolicBP = systolicBP, diastolicBP = diastolicBP,
+                bmi = bmi, weightStatus = weightStatus
             )
-
             val result = medicalRepository.saveMedicalDetails(details)
-
-            _uiState.value = (if (result.isSuccess) {
-                MedicalDetailsUiState.Success
-            } else {
-                MedicalDetailsUiState.Error(result.exceptionOrNull()?.message ?: "Failed to save")
-            }) as MedicalDetailsUiState.Idle
+            _uiState.value = if (result.isSuccess) MedicalDetailsUiState.Success
+            else MedicalDetailsUiState.Error(result.exceptionOrNull()?.message ?: "Failed to save")
         }
     }
 }

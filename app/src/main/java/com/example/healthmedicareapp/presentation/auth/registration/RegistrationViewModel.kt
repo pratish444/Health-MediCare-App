@@ -15,20 +15,15 @@ class RegistrationViewModel @Inject constructor(
     private val signUpUseCase: SignUpUseCase
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(RegistrationUiState.Idle)
-    val uiState: StateFlow = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow<RegistrationUiState>(RegistrationUiState.Idle)
+    val uiState: StateFlow<RegistrationUiState> = _uiState.asStateFlow()
 
     fun signUp(email: String, password: String, fullName: String, mobileNumber: String) {
         viewModelScope.launch {
             _uiState.value = RegistrationUiState.Loading
-
             val result = signUpUseCase(email, password, fullName, mobileNumber)
-
-            _uiState.value = if (result.isSuccess) {
-                RegistrationUiState.Success
-            } else {
-                RegistrationUiState.Error(result.exceptionOrNull()?.message ?: "Registration failed")
-            }
+            _uiState.value = if (result.isSuccess) RegistrationUiState.Success
+            else RegistrationUiState.Error(result.exceptionOrNull()?.message ?: "Registration failed")
         }
     }
 

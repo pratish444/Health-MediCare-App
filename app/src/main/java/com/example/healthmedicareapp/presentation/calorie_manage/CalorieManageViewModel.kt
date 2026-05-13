@@ -13,17 +13,10 @@ class CalorieManageViewModel @Inject constructor(
     private val calculateCaloriesUseCase: CalculateCaloriesUseCase
 ) : ViewModel() {
 
-    private val _calorieData = MutableStateFlow(null)
-    val calorieData: StateFlow = _calorieData.asStateFlow()
+    private val _calorieData = MutableStateFlow<CalculateCaloriesUseCase.CalorieData?>(null)
+    val calorieData: StateFlow<CalculateCaloriesUseCase.CalorieData?> = _calorieData.asStateFlow()
 
-    fun calculateCalories(
-        gender: String,
-        weight: Int,
-        height: Int,
-        age: Int,
-        activityLevel: String
-    ) {
-        val data = calculateCaloriesUseCase(gender, weight, height, age, activityLevel)
-        _calorieData.value = data
+    fun calculateCalories(gender: String, weight: Int, height: Int, age: Int, activityLevel: String) {
+        _calorieData.value = calculateCaloriesUseCase(gender, weight, height, age, activityLevel)
     }
 }

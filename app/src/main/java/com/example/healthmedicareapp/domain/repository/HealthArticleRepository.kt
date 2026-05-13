@@ -6,4 +6,5 @@ import kotlinx.coroutines.flow.Flow
 interface HealthArticleRepository {
     fun getHealthArticles(): Flow<List<HealthArticle>>
     suspend fun refreshArticles(): Result<Unit>
+    suspend fun searchArticles(query: String): Result<Unit>
 }

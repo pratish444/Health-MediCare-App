@@ -19,8 +19,8 @@ class DashboardViewModel @Inject constructor(
     private val medicalRepository: MedicalRepository
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(DashboardUiState.Loading)
-    val uiState: StateFlow = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow<DashboardUiState>(DashboardUiState.Loading)
+    val uiState: StateFlow<DashboardUiState> = _uiState.asStateFlow()
 
     init {
         loadDashboardData()
