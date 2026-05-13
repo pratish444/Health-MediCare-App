@@ -59,7 +59,8 @@ fun HealthArticleScreen(
                 shape = RoundedCornerShape(16.dp),
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = Color(0xFF1565C0), focusedLabelColor = Color(0xFF1565C0),
-                    unfocusedBorderColor = Color.LightGray, containerColor = Color.White
+                    unfocusedBorderColor = Color.LightGray,
+                    focusedContainerColor = Color.White, unfocusedContainerColor = Color.White
                 ),
                 singleLine = true
             )

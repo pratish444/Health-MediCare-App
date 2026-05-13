@@ -19,6 +19,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.healthmedicareapp.domain.usecase.CalculateCaloriesUseCase
 import com.example.healthmedicareapp.presentation.components.MediCareTopBar
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CalorieManageScreen(
     onNavigateBack: () -> Unit,
