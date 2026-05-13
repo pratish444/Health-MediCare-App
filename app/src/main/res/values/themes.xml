@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.HealthMediCareApp" parent="android:Theme.Material.Light.NoActionBar" />
+    <!-- Main app theme — extends Material3 for Compose compatibility -->
+    <style name="Theme.Health_MediCare_Application" parent="Theme.Material3.DayNight.NoActionBar" />
+
 </resources>
