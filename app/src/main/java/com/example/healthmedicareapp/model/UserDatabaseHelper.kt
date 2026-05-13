@@ -32,19 +32,7 @@ class UserDatabaseHelper(context: Context) :
                 "$COLUMN_NAME TEXT " +
                 ")"
         db?.execSQL(createTable)
-
-        val createTable1 = "CREATE TABLE ${MedicalDatabaseHelper.TABLE_NAME} (" +
-                "${MedicalDatabaseHelper.COLUMN_ID} INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "${MedicalDatabaseHelper.COLUMN_EMAIL} TEXT, " +
-                "${MedicalDatabaseHelper.COLUMN_LOCATION} TEXT, " +
-                "${MedicalDatabaseHelper.COLUMN_BMI} INT, " +
-                "${MedicalDatabaseHelper.COLUMN_AGE} TEXT, " +
-                "${MedicalDatabaseHelper.COLUMN_GENDER} TEXT, " +
-                "${MedicalDatabaseHelper.COLUMN_BLOODGRP} TEXT, " +
-                "${MedicalDatabaseHelper.COLUMN_BLOODPRES} TEXT, " +
-                "${MedicalDatabaseHelper.COLUMN_CATEGORY} TEXT " +
-                ")"
-        db?.execSQL(createTable1)
+        // Medical data is now handled by Room DB (MedicalDetailsDao)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
