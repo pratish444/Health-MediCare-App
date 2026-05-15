@@ -4,7 +4,8 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.compose")
-    id("org.jetbrains.kotlin.kapt")
+    id("org.jetbrains.kotlin.kapt")             // kept for Hilt
+    id("com.google.devtools.ksp")               // ← added for Room
     id("com.google.gms.google-services")
     id("com.google.dagger.hilt.android")
 }
@@ -22,13 +23,12 @@ android {
 
     defaultConfig {
         applicationId = "com.example.healthmedicareapp"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        // API keys from local.properties (never commit real keys)
         buildConfigField("String", "NEWS_API_KEY", "\"${localProps.getProperty("NEWS_API_KEY", "")}\"")
         buildConfigField("String", "MAPS_API_KEY", "\"${localProps.getProperty("MAPS_API_KEY", "")}\"")
 
@@ -83,10 +83,10 @@ dependencies {
     // Hilt Navigation Compose
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
-    // Room
-    implementation("androidx.room:room-runtime:2.6.1")
-    kapt("androidx.room:room-compiler:2.6.1")
-    implementation("androidx.room:room-ktx:2.6.1")
+    // Room — switched to KSP (fixes Kotlin 2.1.0 metadata mismatch)
+    implementation("androidx.room:room-runtime:2.7.0")
+    ksp("androidx.room:room-compiler:2.7.0")    // ← ksp instead of kapt
+    implementation("androidx.room:room-ktx:2.7.0")
 
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
@@ -95,7 +95,7 @@ dependencies {
     implementation("com.google.firebase:firebase-database-ktx")
     implementation("com.google.firebase:firebase-messaging-ktx")
 
-    // Hilt DI
+    // Hilt DI — stays on kapt
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
 
@@ -104,13 +104,11 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
-    // Coil for image loading in Compose
+    // Coil
     implementation("io.coil-kt:coil-compose:2.7.0")
 
-    // Google Maps & Places
-    implementation("com.google.android.gms:play-services-maps:19.0.0")
-    implementation("com.google.maps.android:maps-compose:6.2.1")
-    implementation("com.google.android.libraries.places:places:4.1.0")
+    // MapTiler
+    implementation("com.maptiler:maptiler-sdk-kotlin:1.2.0")
 
     // WorkManager
     implementation("androidx.work:work-runtime-ktx:2.10.0")
