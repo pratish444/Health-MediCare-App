@@ -6,32 +6,13 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Warning
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.ErrorOutline
+import androidx.compose.material.icons.rounded.Refresh
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -46,30 +27,42 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.healthmedicareapp.ui.theme.GradientHeader
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MediCareTopBar(
-    title: String,
+    title : String,
     onBack: (() -> Unit)? = null
 ) {
     TopAppBar(
         title = {
             Text(
-                text = title,
+                text       = title,
                 fontWeight = FontWeight.Bold,
-                color = Color.White
+                color      = Color.White
             )
         },
         navigationIcon = {
             if (onBack != null) {
                 IconButton(onClick = onBack) {
-                    Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = Color.White)
+                    Icon(
+                        Icons.AutoMirrored.Rounded.ArrowBack,
+                        contentDescription = "Back",
+                        tint               = Color.White
+                    )
                 }
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color(0xFF1565C0)
+            containerColor = Color.Transparent
+        ),
+        modifier = Modifier.background(
+            Brush.linearGradient(
+                GradientHeader,
+                start = Offset(0f, 0f),
+                end   = Offset(Float.POSITIVE_INFINITY, 0f)
+            )
         )
     )
 }
@@ -77,37 +70,35 @@ fun MediCareTopBar(
 @Composable
 fun LoadingOverlay() {
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(32.dp),
+        modifier         = Modifier.fillMaxWidth().padding(32.dp),
         contentAlignment = Alignment.Center
     ) {
-        CircularProgressIndicator(color = Color(0xFF1565C0))
+        CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
     }
 }
 
 @Composable
 fun ErrorMessage(message: String, onRetry: (() -> Unit)? = null) {
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFFFFEBEE)),
-        shape = RoundedCornerShape(12.dp)
+        modifier = Modifier.fillMaxWidth().padding(16.dp),
+        colors   = CardDefaults.cardColors(containerColor = Color(0xFFFFEBEE)),
+        shape    = RoundedCornerShape(12.dp)
     ) {
         Column(
-            modifier = Modifier.padding(16.dp),
+            modifier            = Modifier.padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Icon(Icons.Default.Warning, contentDescription = null, tint = Color(0xFFD32F2F))
+            Icon(Icons.Rounded.ErrorOutline, contentDescription = null, tint = Color(0xFFD32F2F))
             Spacer(modifier = Modifier.height(8.dp))
             Text(text = message, color = Color(0xFFD32F2F), fontSize = 14.sp)
             if (onRetry != null) {
                 Spacer(modifier = Modifier.height(8.dp))
                 Button(
                     onClick = onRetry,
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1565C0))
+                    colors  = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
                 ) {
+                    Icon(Icons.Rounded.Refresh, null, modifier = Modifier.size(16.dp))
+                    Spacer(Modifier.width(6.dp))
                     Text("Retry")
                 }
             }
@@ -117,24 +108,24 @@ fun ErrorMessage(message: String, onRetry: (() -> Unit)? = null) {
 
 @Composable
 fun StatCard(
-    icon: ImageVector,
-    label: String,
-    value: String,
+    icon    : ImageVector,
+    label   : String,
+    value   : String,
     iconTint: Color,
     modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = modifier,
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
+        modifier  = modifier,
+        shape     = RoundedCornerShape(16.dp),
+        colors    = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Row(
-            modifier = Modifier.padding(16.dp),
+            modifier          = Modifier.padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Box(
-                modifier = Modifier
+                modifier         = Modifier
                     .size(48.dp)
                     .clip(RoundedCornerShape(12.dp))
                     .background(iconTint.copy(alpha = 0.15f)),
@@ -144,8 +135,8 @@ fun StatCard(
             }
             Spacer(modifier = Modifier.width(12.dp))
             Column {
-                Text(text = value, fontWeight = FontWeight.Bold, fontSize = 18.sp, color = Color(0xFF1A1A2E))
-                Text(text = label, fontSize = 12.sp, color = Color(0xFF666666))
+                Text(text = value, fontWeight = FontWeight.Bold, fontSize = 18.sp, color = MaterialTheme.colorScheme.onSurface)
+                Text(text = label, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f))
             }
         }
     }
